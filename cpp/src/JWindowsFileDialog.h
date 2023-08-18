@@ -11,7 +11,7 @@
  * @file JWindowsFileDialog.h
  * @brief Provides the JNI access functions to interface with Java
  * @author Jackson Brienen
- * @version 0.8
+ * @version 0.81
  */
 
 #pragma once

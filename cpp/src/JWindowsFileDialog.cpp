@@ -65,6 +65,8 @@ JNIEXPORT jstring JNICALL Java_com_github_jacksonbrienen_jwfd_WindowsFileDialog_
     jstring value;
     unsigned short code = openFileDialog(env, value, hwnd, wtitle, wstartingDir, comFilters, filterSize);
     freeJavaFilter(env, filters, wfilter, comFilters);
+    env->ReleaseStringChars(title, (const jchar *)wtitle);
+    env->ReleaseStringChars(startingDir, (const jchar*)wstartingDir);
     if (code != DIALOG_SUCCESS)
         return nullptr;
 
@@ -91,6 +93,8 @@ JNIEXPORT jstring JNICALL Java_com_github_jacksonbrienen_jwfd_WindowsFileDialog_
     jstring value;
     unsigned short code = openSaveDialog(env, value, hwnd, wtitle, wstartingDir, comFilters, filterSize);
     freeJavaFilter(env, filters, wfilter, comFilters);
+    env->ReleaseStringChars(title, (const jchar*)wtitle);
+    env->ReleaseStringChars(startingDir, (const jchar*)wstartingDir);
     if (code != DIALOG_SUCCESS)
         return nullptr;
 
@@ -117,6 +121,8 @@ JNIEXPORT jobjectArray JNICALL Java_com_github_jacksonbrienen_jwfd_WindowsFileDi
     jobjectArray value;
     unsigned short code = openMultiDialog(env, value, hwnd, wtitle, wstartingDir, comFilters, filterSize);
     freeJavaFilter(env, filters, wfilter, comFilters);
+    env->ReleaseStringChars(title, (const jchar*)wtitle);
+    env->ReleaseStringChars(startingDir, (const jchar*)wstartingDir);
     if (code != DIALOG_SUCCESS) 
         return nullptr;
 
@@ -136,7 +142,10 @@ JNIEXPORT jstring JNICALL Java_com_github_jacksonbrienen_jwfd_WindowsFileDialog_
 
     jstring value;
     if (openDirDialog(env, value, hwnd, wtitle, wstartingDir) != DIALOG_SUCCESS)
-        return nullptr;
+        value = nullptr;
+
+    env->ReleaseStringChars(title, (const jchar*)wtitle);
+    env->ReleaseStringChars(startingDir, (const jchar*)wstartingDir);
 
     return value;
 }
