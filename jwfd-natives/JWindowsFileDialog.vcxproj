@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Release Configs -->
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectName>JWindowsFileDialog</ProjectName>
+    <SourceDir>$(SolutionDir)src\main\cpp\</SourceDir>
+
+    <!-- Location of a 32 bit and 64 bit JDK for needed include and library files -->
+    <x86JDK>C:\Program Files (x86)\Java\jdk1.8.0_101\</x86JDK>
+    <x64JDK>C:\Program Files\Java\jdk1.8.0_101\</x64JDK>
+  </PropertyGroup>
+
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <OutDir>$(SolutionDir)target\classes\io\github\jacksonbrienen\jwfd\natives\</OutDir>
+    <IntDir>$(SolutionDir)target\artifacts\$(Platform)\</IntDir>
+    <TargetName>jwfd_$(Platform)</TargetName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <OutDir>$(SolutionDir)target\classes\io\github\jacksonbrienen\jwfd\natives\</OutDir>
+    <IntDir>$(SolutionDir)target\artifacts\$(Platform)\</IntDir>
+    <TargetName>jwfd_$(Platform)</TargetName>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(x86JDK)include\;$(x86JDK)include\win32\</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(x64JDK)include\;$(x64JDK)include\win32\</IncludePath>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;JWindowsFileDialog_EXPORTS;_WINDOWS;_USRDLL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(CoreLibraryDependencies);$(x86JDK)lib\jawt.lib</AdditionalDependencies>
+      <AdditionalOptions>/NOIMPLIB /NOEXP</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;JWindowsFileDialog_EXPORTS;_WINDOWS;_USRDLL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(CoreLibraryDependencies);$(x64JDK)lib\jawt.lib</AdditionalDependencies>
+      <AdditionalOptions>/NOIMPLIB /NOEXP</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <ClInclude Include="$(SourceDir)JException.h" />
+    <ClInclude Include="$(SourceDir)framework.h" />
+    <ClInclude Include="$(SourceDir)JHWND.h" />
+    <ClInclude Include="$(SourceDir)JWindowsFileDialog.h" />
+    <ClInclude Include="$(SourceDir)WindowsFileDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SourceDir)dllmain.cpp" />
+    <ClCompile Include="$(SourceDir)JException.cpp" />
+    <ClCompile Include="$(SourceDir)JHWND.cpp" />
+    <ClCompile Include="$(SourceDir)JWindowsFileDialog.cpp" />
+    <ClCompile Include="$(SourceDir)WindowsFileDialog.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,6 +1,6 @@
 <h1 style="margin: 0;">JWindowsFileDialog</h1>
 <p>Windows native file dialog library for Java AWT and Swing. Allowing the use of the native file dialog on Windows, and using JFileChooser on non-compatible operating systems.</p>
-<p>❗<strong>This project is in the early stages of development, expect changes and breaking features. If you find a bug please report it under the issues section. I suck at spelling, so if there is an issue with documentation please report that as well.</strong>❗</p>
+<p>❗<strong>While most issues have been sorted out, ARM architecture is not supported and the fallback methods have not been tested.</strong>❗</p>
 <h3 style="margin: 0;">Usage</h3>
 
 ```java
@@ -11,15 +11,40 @@ FileExtension png = new FileExtension("PNG Images", "png", "png");
 // pass either a Frame or JFrame in the first argument to have the dialog act as a modal, null can be passed
 String selection = JWindowsFileDialog.showOpenDialog(null, "Select an Image", jpg, png, FileExtension.ALL);
 
-if(selection == null)
+if(selection == null) {
 	System.out.println("The user did not select an image");
-else
+} else {
 	System.out.println("The selected image is: " + selection);
+}
 ```
-Documentation is provided for all methods, and a larger example is available under demo.
+Documentation is provided for all methods, and a working demo is available under jwfd-demo.
 
+<h3 style="margin: 1;">Importing</h3>
+
+<h5 style="margin: 0;">Maven</h5>
+
+```xml
+<dependency>
+    <groupId>io.github.jacksonbrienen</groupId>
+    <artifactId>jwfd</artifactId>
+    <version>0.9.0</version>
+</dependency>
+```
+
+<h5 style="margin: 0;">Gradle</h5>
+
+```gradle
+implementation group: 'io.github.jacksonbrienen', name: 'jwfd', version: '0.9.0'
+```
+
+<h5 style="margin: 0;">Gradle(Kotlin)</h5>
+
+```gradle.kts
+implementation("io.github.jacksonbrienen:jwfd:0.9.0")
+```
+Other imports can be found on the [maven central page](https://central.sonatype.com/artifact/io.github.jacksonbrienen/jwfd).
 <h3 style="margin: 0;">Compatibility</h3>
-<p style="margin: 1;">Compiled with JDK 8u101, tested up to JDK 20.0.2. 32-bit and 64-bit is support.</p>
+<p style="margin: 1;">Compiled with JDK 8u101, tested up to JDK 22.0.2. 32-bit and 64-bit is support, ARM is not supported at this time.</p>
 <h5 style="margin: 0;">OS Support</h5>
 <p style="font-size: 0.8em;">Key: ✔️ (Working), ❌ (Not Working/ Unsupported), ⚠️ (Untested expected to work)</p>
 

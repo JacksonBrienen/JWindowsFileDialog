@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Content Protected VIA GPL-2.0-only
+    https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+    Copyright (c) 2024 Jackson Brienen
+    https://github.com/JacksonBrienen/JWindowsFileDialog
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+          <groupId>io.github.jacksonbrienen</groupId>
+          <artifactId>jwfd-parent</artifactId>
+          <version>0.9.0</version>
+    </parent>
+
+    <groupId>io.github.jacksonbrienen</groupId>
+    <artifactId>jwfd-natives</artifactId>
+    <version>0.9.0</version>
+
+    <name>JWindowsFileDialog Natives</name>
+    <description>Native Windows shared libraries for JNI needed by JWindowsFileDialog</description>
+    <url>https://github.com/JacksonBrienen/JWindowsFileDialog/tree/v0.9/jwfd-natives</url>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>Jackson Brienen</name>
+            <url>https://github.com/jacksonbrienen</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License, version 2</name>
+            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/jacksonbrienen/JWindowsFileDialog</url>
+        <connection>scm:git:https://github.com/jacksonbrienen/JWindowsFileDialog.git</connection>
+    </scm>
+
+     <build>
+        <plugins>
+            <!-- Compiles Native CPP code -->
+            <!-- Note vcvars must be initialized -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <executable>msbuild</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>clean-x86</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <arguments>
+                                <argument>${basedir}/JWindowsFileDialog.vcxproj</argument>
+                                <argument>/p:Configuration=Release</argument>
+                                <argument>/p:Platform=x86</argument>
+                                <argument>/t:Clean</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>clean-x64</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <arguments>
+                                <argument>${basedir}/JWindowsFileDialog.vcxproj</argument>
+                                <argument>/p:Configuration=Release</argument>
+                                <argument>/p:Platform=x64</argument>
+                                <argument>/t:Clean</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>compile-x86</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <arguments>
+                                <argument>${basedir}/JWindowsFileDialog.vcxproj</argument>
+                                <argument>/p:Configuration=Release</argument>
+                                <argument>/p:Platform=x86</argument>
+                                <argument>/t:Build</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>compile-x64</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <arguments>
+                                <argument>${basedir}/JWindowsFileDialog.vcxproj</argument>
+                                <argument>/p:Configuration=Release</argument>
+                                <argument>/p:Platform=x64</argument>
+                                <argument>/t:Build</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
